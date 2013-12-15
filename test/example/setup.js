@@ -26,6 +26,6 @@ var X = React.createClass({
 })
 
 React.renderComponent(X({
-}), document.getElementById('drop'))
+}), document.getElementById('simple'))
 
 

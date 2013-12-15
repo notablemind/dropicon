@@ -12,26 +12,23 @@ input.focus {
   box-shadow: 0 0 5px #ccc;
   padding: 10px 30px 30px;
 }
-.head:hover {
-  background-color: #ccc;
-}
-.tree:hover {
-  background-color: rgba(0,0,0,.1);
-}
-.tree.hover {
-  border: 1px solid black;
-}
-.move-handle {
-  float: right;
-  width: 20px;
-  height: 10px;
-  background-color: red;
-}
 
-.tree-node .head .clicker {
-  cursor: pointer;
+#simple .dropicon {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #ccc;
 }
-.tree-node .head:hover {
-  background-color: white;
+#simple .dropicon ul,
+#simple .dropicon li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
+#simple .dropicon .text-item {
+  padding: 5px 10px;
+}
+#simple .dropicon .list .text-item:hover {
+  background-color: #eef;
+}
+#simple .dropicon .list { display: none }
+#simple .dropicon.open .list { display: block }
