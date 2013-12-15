@@ -1,0 +1,34 @@
+body {
+  font-family: sans-serif;
+}
+
+input.focus {
+  background-color: magenta;
+}
+
+.wrapper {
+  width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 0 5px #ccc;
+  padding: 10px 30px 30px;
+}
+
+#simple .dropicon {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #ccc;
+}
+#simple .dropicon ul,
+#simple .dropicon li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#simple .dropicon .text-item {
+  padding: 5px 10px;
+}
+#simple .dropicon .list .text-item:hover {
+  background-color: #eef;
+}
+#simple .dropicon .list { display: none }
+#simple .dropicon.open .list { display: block }
