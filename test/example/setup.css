@@ -1,0 +1,37 @@
+body {
+  font-family: sans-serif;
+}
+
+input.focus {
+  background-color: magenta;
+}
+
+.wrapper {
+  width: 500px;
+  margin: 50px auto;
+  box-shadow: 0 0 5px #ccc;
+  padding: 10px 30px 30px;
+}
+.head:hover {
+  background-color: #ccc;
+}
+.tree:hover {
+  background-color: rgba(0,0,0,.1);
+}
+.tree.hover {
+  border: 1px solid black;
+}
+.move-handle {
+  float: right;
+  width: 20px;
+  height: 10px;
+  background-color: red;
+}
+
+.tree-node .head .clicker {
+  cursor: pointer;
+}
+.tree-node .head:hover {
+  background-color: white;
+}
+
