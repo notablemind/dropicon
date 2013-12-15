@@ -2,23 +2,120 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Dropicon Example</title>
+    <title>Dropicon React Component</title>
     <script src="react.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="prism.css">
     <link rel="stylesheet" href="setup.css">
   </head>
   <body>
-    <!--a href="https://github.com/notablemind/tree">
+    <a href="https://github.com/notablemind/dropicon">
       <img style="position: absolute; top: 0; right: 0; border: 0;"
            src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"
            alt="Fork me on GitHub">
-    </a-->
+    </a>
     <div class="wrapper">
-      <h1>Dropicon Examples</h1>
-      <h2>Simple</h2>
+      <h1>Dropicon React Component</h1>
+      <p>Dropicon uses the <a href='http://facebook.github.io/react'>react</a>
+      framework, and is a <strong>composable component</strong>. This means
+      that it does one job, does it well, and then gets out of the way so you
+      can do what you need.</p>
+      <h2>Default Config</h2>
+      <p>This first example shows the default configuration, styled with the <a
+      href='https://github.com/notablemind/dropicon-simple'>dropicon-simple</a>
+      theme. I've included the source of the default view component for
+      reference.</p>
       <div id="simple"></div>
+      <pre class='collapse showing' title='Simple Item'><code class="language-javascript">
+// This is the default view component; it expects the "value" to be a string,
+// which is displayed.
+var Text = React.createClass({
+  render: function () {
+    return (
+      &lt;div className='text-item' onClick={this.props.onSelect}>
+        {this.props.value}
+      &lt;/div>
+    )
+  }
+})
+      </code></pre>
+      <p>There's a bit of scaffolding required to show this demo, because
+      Dropicon doesn't own the state of it's current value - that's passed in
+      thorugh a property. And so we create a container that owns the state and
+      displays it as well.</p>
+      <pre class='collapse' title='Scaffolding'><code class="language-javascript">
+var Dropicon = require('dropicon')
+
+var Demo = React.createClass({
+  getInitialState: function () {
+    return {
+      value: this.props.initialValue
+    }
+  },
+  onChange: function (value) {
+    this.setState({value: value})
+  },
+  render: function () {
+    return React.DOM.div({}, [
+      'Current Value: ' + JSON.stringify(this.state.value),
+      React.DOM.br(),
+      this.transferPropsTo(Dropicon({
+        value: this.state.value,
+        onChange: this.onChange
+      }))
+    ])
+  },
+})
+
+React.renderComponent(Demo({
+  initialValue: 'one',
+  className: 'simple-theme', // using the [dropicon-simple](https://github.com/notablemind/dropicon-simple) theme
+  options: ['one', 'two', 'three']
+}), document.getElementById('simple'))
+      </code></pre>
+
+      <h2>Colorful</h2>
+      <p>In this second example, we'll actually <strong>define our own custom view
+      component and pass that in.</strong> This is where react's real power comes out -
+      composability. You can take this principle and create a dropdown that
+      displays images, icons, or <em>anything else</em> you want, without ever
+      having to rewrite the dropdown code.</p>
+      <p>Just for kicks, we've also set "showSelected" to true, so that the
+      currently selected value is also listed in the dropdown.</p>
+      <div id="colorful"></div>
+      <pre class="collapse showing" title='Colorful Component'><code class="language-javascript">
+var Colorful = React.createClass({
+  render: function () {
+    return (
+      &lt;div className='color-item' onClick={this.props.onSelect}>
+        &lt;span className='color' style={{
+          backgroundColor: this.props.value.color
+        }}/>
+        {this.props.value.title}
+      &lt;/div>
+    )
+  }
+})
+      </code></pre>
+      And the invocation:
+      <pre class="collapse showing" title='Colorful Invocation'><code class="language-javascript">
+var options = [
+  {color: 'red', title: 'Warning'},
+  {color: 'green', title: 'Awesome'},
+  {color: 'magenta', title: 'Problems'}
+]
+React.renderComponent(Demo({
+  view: Colorful, // here we tell dropicon to use our custom view for displaying each option
+  initialValue: options[0],
+  className: 'simple-theme',
+  showSelected: true,
+  options: options,
+}), document.getElementById('colorful'))
+      </code></pre>
+
     </div>
+    <script src="prism.js" data-manual></script>
     <script src="setup.js"></script>
   </body>
 </html>

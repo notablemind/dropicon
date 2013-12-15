@@ -1,0 +1,47 @@
+.simple-theme.dropicon {
+  display: inline-block;
+  width: 200px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  position: relative;
+}
+.simple-theme.dropicon .list li > *,
+.simple-theme.dropicon .head > * {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.simple-theme.dropicon .head::after {
+  content: '\25BE';
+  position: absolute;
+  color: #555;
+  right: 13px;
+  top: 5px;
+}
+.simple-theme.dropicon.open .head::after {
+  content: '\25B4';
+  top: 3px;
+}
+.simple-theme.dropicon ul,
+.simple-theme.dropicon li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.simple-theme.dropicon .list {
+  display: none;
+  position: absolute;
+  left: -1px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 100%;
+}
+.simple-theme.dropicon .list .item.selected > * {
+  background-color: #ddf;
+}
+.simple-theme.dropicon .list .item > *:hover {
+  background-color: #eef;
+}
+.simple-theme.dropicon.open .list {
+  display: block;
+}

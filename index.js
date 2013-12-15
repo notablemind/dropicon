@@ -199,6 +199,7 @@ require.relative = function(parent) {
 
   return localRequire;
 };
+
 require.register("dropicon/index.js", Function("exports, require, module",
 "/** @jsx React.DOM */\n\
 \n\
@@ -215,6 +216,7 @@ var DropIcon = module.exports = React.createClass({\n\
       onChange: function () {},\n\
       options: ['one', 'two', 'three'],\n\
       view: Text,\n\
+      headView: false,\n\
       setOpen: false,\n\
 \n\
       className: '',\n\
@@ -268,7 +270,7 @@ var DropIcon = module.exports = React.createClass({\n\
     return (\n\
       React.DOM.div( {className:'dropicon ' + this.props.className + (this.state.open ? ' open' : ''),  onMouseDown:this.suppressMouseDown}, \n\
         React.DOM.div( {className:\"head\"}, \n\
-          this.props.view({value: this.props.value, onSelect: this.toggle})\n\
+          (this.props.headView || this.props.view)({value: this.props.value, onSelect: this.toggle})\n\
         ),\n\
         React.DOM.ul( {className:\"list\"}, \n\
           \n\
@@ -290,4 +292,5 @@ var DropIcon = module.exports = React.createClass({\n\
 })\n\
 //@ sourceURL=dropicon/index.js"
 ));
+
 require.alias("dropicon/index.js", "dropicon/index.js");
