@@ -5,7 +5,9 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {},
-  "development": {},
+  "development": {
+    "notablemind/dropicon-simple": "*"
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": [
@@ -13,5 +15,6 @@
   ],
   "styles": [
     "dropicon.css"
-  ]
+  ],
+  "remotes": []
 }
