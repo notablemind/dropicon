@@ -67,7 +67,7 @@ var DropIcon = module.exports = React.createClass({
     return (
       <div className={'dropicon ' + this.props.className + (this.state.open ? ' open' : '') } onMouseDown={this.suppressMouseDown}>
         <div className="head">
-          {(this.props.headView || this.props.view)({value: this.props.value, onSelect: this.toggle})}
+          {(this.props.headView || this.props.view)({value: this.props.value, head: true, onSelect: this.toggle})}
         </div>
         <ul className="list">
           {

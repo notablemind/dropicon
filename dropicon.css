@@ -1,0 +1,31 @@
+
+.dropicon {
+  display: inline-block;
+  position: relative;
+}
+
+.dropicon li,
+.dropicon .head {
+  cursor: pointer;
+}
+
+.dropicon ul,
+.dropicon li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropicon .list {
+  display: none;
+  position: absolute;
+  background-color: white;
+  white-space: nowrap;
+  width: auto;
+  z-index: 1;
+}
+
+.dropicon.open .list {
+  display: block;
+}
+

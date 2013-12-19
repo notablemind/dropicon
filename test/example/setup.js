@@ -60,13 +60,6 @@ React.renderComponent(Demo({
   options: options,
 }), document.getElementById('colorful'))
 
-
-
-
-
-
-
-
 var CollapsePre = React.createClass({
   getInitialState: function () {
     return {showing: this.props.showInitial}
