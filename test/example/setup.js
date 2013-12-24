@@ -26,6 +26,18 @@ React.renderComponent(Demo({
   initialValue: 'one',
   className: 'simple-theme',
   options: ['one', 'two', 'three']
+}), document.getElementById('d1'))
+
+React.renderComponent(Demo({
+  initialValue: 'one',
+  className: 'simple-theme',
+  options: ['one', 'two', 'three']
+}), document.getElementById('d2'))
+
+React.renderComponent(Demo({
+  initialValue: 'one',
+  className: 'simple-theme',
+  options: ['one', 'two', 'three']
 }), document.getElementById('simple'))
 
 /* colorful */

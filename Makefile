@@ -2,9 +2,6 @@
 build: components index.js dropicon.css
 	@component build --dev -o test/example/ -n index
 
-index.js: index.jsx
-	@jsx index.jsx > index.js
-
 components: component.json
 	@component install --dev
 

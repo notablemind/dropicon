@@ -1,8 +1,9 @@
-/** @jsx React.DOM */
+
+var d = React.DOM
 
 var Text = React.createClass({displayName: 'Text',
   render: function () {
-    return React.DOM.div( {className:"text-item", onClick:this.props.onSelect}, this.props.value)
+    return d.div( {className:"text-item", onClick:this.props.onSelect}, this.props.value)
   }
 })
 
@@ -57,6 +58,7 @@ var DropIcon = module.exports = React.createClass({
     this.close()
   },
   suppressMouseDown: function (e) {
+    if (!this.state.open) return
     e.preventDefault()
     e.stopPropagation()
     e.nativeEvent.stopPropagation()
@@ -65,23 +67,19 @@ var DropIcon = module.exports = React.createClass({
   },
   render: function () {
     return (
-      React.DOM.div( {className:'dropicon ' + this.props.className + (this.state.open ? ' open' : ''),  onMouseDown:this.suppressMouseDown}, 
-        React.DOM.div( {className:"head"}, 
+      d.div({className:'dropicon ' + this.props.className + (this.state.open ? ' open' : ''),  onMouseDown:this.suppressMouseDown}, 
+        d.div({className:"head"}, 
           (this.props.headView || this.props.view)({value: this.props.value, head: true, onSelect: this.toggle})
         ),
-        React.DOM.ul( {className:"list"}, 
-          
-            this.props.options.map(function (value) {
-              if (value === this.props.value && !this.props.showSelected) return false
-              return (
-                React.DOM.li( {className:'item ' + (value === this.props.value ?  'selected' : '')}, 
-                  
-                    this.props.view({value: value, onSelect: this.change.bind(null, value)})
-                  
-                )
+        d.ul({className:"list"}, 
+          this.props.options.map(function (value) {
+            if (value === this.props.value && !this.props.showSelected) return false
+            return (
+              d.li({className:'item ' + (value === this.props.value ?  'selected' : '')}, 
+                this.props.view({value: value, onSelect: this.change.bind(null, value)})
               )
-            }.bind(this))
-          
+            )
+          }.bind(this))
         )
       )
     )
