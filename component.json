@@ -4,7 +4,9 @@
   "description": "A dropdown w/ icons",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "notablemind/keys": "*"
+  },
   "development": {
     "notablemind/dropicon-simple": "*"
   },

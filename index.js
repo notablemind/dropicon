@@ -1,5 +1,6 @@
 
 var d = React.DOM
+  , keys = require('keys')
 
 var Text = React.createClass({displayName: 'Text',
   render: function () {
@@ -24,19 +25,27 @@ var DropIcon = module.exports = React.createClass({
   getInitialState: function () {
     return {
       open: this.props.setOpen,
+      focused: false,
       active: false
     }
   },
   componentWillReceiveProps: function (props) {
     if (props.setOpen && !this.state.open) {
-      this.setState({open: true})
+      this.setState({open: true, focused: false})
     }
   },
   open: function () {
-    this.setState({open: true})
+    var focused = 0
+    if (this.props.showSelected) focused = this.props.options.indexOf(this.props.value)
+    else if (this.props.options[0] === this.props.value) focused = 1
+    this.setState({
+      focused: focused,
+      open: true
+    })
   },
   toggle: function () {
-    this.setState({open: !this.state.open})
+    if (!this.state.open) return this.open()
+    this.setState({open: false})
   },
   close: function (e) {
     if (e && e.suppressed) return
@@ -69,7 +78,29 @@ var DropIcon = module.exports = React.createClass({
   focus: function () {
     this.setState({open: true})
   },
+  keySelect: function () {
+    if (this.state.focused !== false) {
+      this.props.onChange(this.props.options[this.state.focused])
+    }
+    this.setState({
+      open: false,
+    })
+  },
   keys: {
+    'space': function () {
+      if (this.state.open) {
+        this.keySelect()
+      } else {
+        this.open()
+      }
+    },
+    'return': function () {
+      if (this.state.open) {
+        this.keySelect()
+      } else {
+        this.open()
+      }
+    },
     'escape': function () {
       this.setState({open: false})
     },
@@ -82,13 +113,36 @@ var DropIcon = module.exports = React.createClass({
       if (this.props.onPrev) this.props.onPrev()
     },
     'up': function () {
+      var focused = this.state.focused - 1
+      if (focused < 0) focused = 0
+      if (this.props.options[focused] === this.props.value && !this.props.showSelected) {
+        if (focused > 0) {
+          focused -= 1
+        } else {
+          focused += 1
+        }
+      }
+      this.setState({focused: focused})
     },
     'down': function () {
+      var focused = this.state.focused + 1
+      if (focused >= this.props.options.length) {
+        focused -= 1
+      }
+      if (this.props.options[focused] === this.props.value && !this.props.showSelected) {
+        if (focused === this.props.options.length - 1) {
+          focused -= 1
+        } else {
+          focused += 1
+        }
+      }
+      this.setState({focused: focused})
     },
   },
-  onKeyDown: function (e) {
+  onOtherKey: function (e) {
     // up, down, typing in the name
     console.log(e)
+    e.preventDefault()
   },
   suppressMouseDown: function (e) {
     if (!this.state.open) return
@@ -99,10 +153,11 @@ var DropIcon = module.exports = React.createClass({
     return false
   },
   render: function () {
+    var keydown = keys(this.keys, this.onOtherKey).bind(this)
     return (
       d.div({
         tabindex:0,
-        onKeyDown: this.onKeyDown,
+        onKeyDown: keydown,
         className:'dropicon ' + this.props.className + (this.state.open ? ' open' : ''),
         onMouseDown:this.suppressMouseDown
       }, [
@@ -110,10 +165,12 @@ var DropIcon = module.exports = React.createClass({
           (this.props.headView || this.props.view)({value: this.props.value, head: true, onSelect: this.toggle})
         ),
         d.ul({className:"list"}, 
-          this.props.options.map(function (value) {
+          this.props.options.map(function (value, i) {
             if (value === this.props.value && !this.props.showSelected) return false
+            var cname = 'item ' + (value === this.props.value ?  'selected' : '')
+            if (i === this.state.focused) cname += ' focused'
             return (
-              d.li({className:'item ' + (value === this.props.value ?  'selected' : '')}, 
+              d.li({className:cname}, 
                 this.props.view({value: value, onSelect: this.change.bind(null, value)})
               )
             )
