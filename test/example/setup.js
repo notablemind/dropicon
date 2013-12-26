@@ -68,6 +68,7 @@ React.renderComponent(Demo({
   initialValue: options[0],
   className: 'simple-theme',
   showSelected: true,
+  mainText: function (x) { return x.title },
   view: Colorful,
   options: options,
 }), document.getElementById('colorful'))

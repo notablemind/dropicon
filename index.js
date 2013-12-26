@@ -13,6 +13,7 @@ var DropIcon = module.exports = React.createClass({
     return {
       value: 'one',
       onChange: function () {},
+      mainText: function (x) { return x },
       options: ['one', 'two', 'three'],
       view: Text,
       headView: false,
@@ -64,7 +65,6 @@ var DropIcon = module.exports = React.createClass({
     }
   },
   componentDidMount: function () {
-    this.getDOMNode().setAttribute('tabindex', 0)
     if (this.state.open) {
       this.onOpen()
     } else {
@@ -140,9 +140,16 @@ var DropIcon = module.exports = React.createClass({
     },
   },
   onOtherKey: function (e) {
-    // up, down, typing in the name
-    console.log(e)
-    e.preventDefault()
+    var hit = []
+    if (!e.keyCode) return
+    var chr = String.fromCharCode(e.keyCode)
+    for (var i=0; i<this.props.options.length; i++) {
+      if (this.props.mainText(this.props.options[i])[0].toUpperCase() === chr) {
+        e.preventDefault()
+        this.change(this.props.options[i])
+        return
+      }
+    }
   },
   suppressMouseDown: function (e) {
     if (!this.state.open) return
@@ -156,7 +163,7 @@ var DropIcon = module.exports = React.createClass({
     var keydown = keys(this.keys, this.onOtherKey).bind(this)
     return (
       d.div({
-        tabindex:0,
+        tabIndex:0,
         onKeyDown: keydown,
         className:'dropicon ' + this.props.className + (this.state.open ? ' open' : ''),
         onMouseDown:this.suppressMouseDown
